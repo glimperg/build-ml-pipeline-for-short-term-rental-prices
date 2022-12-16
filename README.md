@@ -6,6 +6,13 @@ to be retrained with the same cadence, necessitating an end-to-end pipeline that
 
 In this project you will build such a pipeline.
 
+# Links
+Wandb link: https://wandb.ai/glimperg/nyc_airbnb
+
+Github link: https://github.com/glimperg/build-ml-pipeline-for-short-term-rental-prices
+
+<br>
+
 ## Table of contents
 
 - [Introduction](#build-an-ML-Pipeline-for-Short-Term-Rental-Prices-in-NYC)
