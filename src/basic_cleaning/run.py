@@ -19,7 +19,7 @@ def go(args):
 
     # Download input artifact. This will also log that this script is using this
     # particular version of the artifact
-    logger.info("Downloading artifact")
+    logger.info("Downloading artifact...")
     artifact_local_path = run.use_artifact(args.input_artifact).file()
     logger.info("Successfully downloaded artifact")
 
@@ -27,6 +27,7 @@ def go(args):
     # YOUR CODE HERE     #
     ######################
     df = pd.read_csv(artifact_local_path)
+    logger.info("Loaded csv, cleaning data...")
 
     # set limits for price
     idx = df['price'].between(args.min_price, args.max_price)
@@ -34,9 +35,13 @@ def go(args):
     # convert last_review to datetime
     df['last_review'] = pd.to_datetime(df['last_review'])
 
+    # drop rows that are not within the correct geolocation
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+
     csv_filename = "clean_sample.csv"
     df.to_csv(csv_filename, index=False)
-    logger.info("Saved clean csv")
+    logger.info("Done, saved clean csv")
 
     artifact = wandb.Artifact(
         args.output_artifact,
